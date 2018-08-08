@@ -1,0 +1,38 @@
+﻿USE DATABASE UkPostcodes;
+USE SCHEMA PostcodeData;
+
+@baseData =
+    SELECT	d.District,
+			pd.Males,
+			pd.Females
+    FROM PostcodeDemographics AS pd
+         INNER JOIN
+             Postcodes AS p
+         ON pd.Postcode == p.Postcode
+         INNER JOIN
+             Districts AS d
+         ON p.DistrictCode == d.DistrictCode;
+
+@averages =
+    SELECT District,
+           SUM(Males) AS NoOfMales,
+           SUM(Females) AS NoOfFemales,
+           COUNT( * ) AS NoOfPostcodes,
+		   AVG((decimal)Males) AS MaleAverage,
+		   AVG((decimal)Females) AS FemaleAverage
+    FROM @baseData
+    GROUP BY District;
+
+@finalAverages =
+    SELECT District,
+           NoOfMales,
+           NoOfFemales,
+           NoOfPostcodes,
+           Math.Round((decimal)MaleAverage, 2) AS MaleAverage,
+           Math.Round((decimal)FemaleAverage, 2) AS FemaleAverage
+    FROM @averages;
+
+OUTPUT @finalAverages
+TO "/output/DistrictAverages.txt"
+ORDER BY District ASC
+USING Outputters.Text(outputHeader : true, quoting : true, delimiter:'|');

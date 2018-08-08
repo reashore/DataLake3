@@ -1,0 +1,23 @@
+﻿USE DATABASE UkPostcodes;
+USE SCHEMA PostcodeData;
+
+@records = 
+	SELECT CASE WHEN OccupiedHouseholds BETWEEN 1 AND 20 THEN "1-20"
+				WHEN OccupiedHouseholds BETWEEN 21 AND 40 THEN "21-40"
+				WHEN OccupiedHouseholds BETWEEN 41 AND 60 THEN "41-60"
+				WHEN OccupiedHouseholds BETWEEN 61 AND 80 THEN "61-80"
+				WHEN OccupiedHouseholds BETWEEN 81 AND 100 THEN "81-100"
+				WHEN OccupiedHouseholds > 100 THEN ">100"
+				ELSE "Unknown"
+		   END AS HouseholdCount
+    FROM PostcodeDemographics;
+
+@sumTotals =
+    SELECT HouseholdCount,
+           COUNT(HouseholdCount) AS Total
+    FROM @records
+    GROUP BY HouseholdCount;
+
+OUTPUT @sumTotals
+TO "/output/household_totals.csv"
+USING Outputters.Csv(outputHeader:true);
