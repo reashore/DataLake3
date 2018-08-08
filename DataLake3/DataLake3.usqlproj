@@ -27,6 +27,7 @@
     <Script Include="030_CreateDistrictsTable.usql" />
     <Script Include="040_PopulateTables.usql" />
     <Script Include="005_CreateDatabases.usql" />
+    <Script Include="045_ PostcodesWithoutDemographicsAntisemiJoin.usql" />
     <Script Include="050_AveragePersonCountsByDistrict.usql" />
     <Script Include="060_AccupiedHouseholdRangeCount.usql" />
   </ItemGroup>
@@ -48,6 +49,9 @@
     </ScriptCode>
     <ScriptCode Include="005_CreateDatabases.usql.cs">
       <DependentUpon>005_CreateDatabases.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="045_ PostcodesWithoutDemographicsAntisemiJoin.usql.cs">
+      <DependentUpon>045_ PostcodesWithoutDemographicsAntisemiJoin.usql</DependentUpon>
     </ScriptCode>
     <ScriptCode Include="050_AveragePersonCountsByDistrict.usql.cs">
       <DependentUpon>050_AveragePersonCountsByDistrict.usql</DependentUpon>
