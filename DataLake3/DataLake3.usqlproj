@@ -21,9 +21,23 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Script Include="Script.usql" />
-    <ScriptCode Include="Script.usql.cs">
-      <DependentUpon>Script.usql</DependentUpon>
+    <Script Include="010_CreatePostalCodeTables.usql" />
+    <Script Include="020_CreatePostalCodeDemographicsTable.usql" />
+    <Script Include="030_CreateDistrictsTable.usql" />
+    <Script Include="040_PopulateTables.usql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ScriptCode Include="010_CreatePostalCodeTables.usql.cs">
+      <DependentUpon>010_CreatePostalCodeTables.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="020_CreatePostalCodeDemographicsTable.usql.cs">
+      <DependentUpon>020_CreatePostalCodeDemographicsTable.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="030_CreateDistrictsTable.usql.cs">
+      <DependentUpon>030_CreateDistrictsTable.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="040_PopulateTables.usql.cs">
+      <DependentUpon>040_PopulateTables.usql</DependentUpon>
     </ScriptCode>
   </ItemGroup>
   <!-- check for SDK Build target in current path then in USQLSDKPath-->
